@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\TourRepositoryInterface;
+use App\Repositories\TourRepository;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /**
+        *When we call our TourRepositoryInterface
+        *Laravel will understand that we want to use
+        *our TourRepository indeed
+         */
+        $this->app->bind(
+            TourRepositoryInterface::class,
+            TourRepository::class
+        );
     }
 
     /**
@@ -23,6 +34,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }
